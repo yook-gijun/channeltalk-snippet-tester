@@ -14,34 +14,28 @@ export const ButtonComponent = ({
       border: 'none',
       hoverBg: '#3A7BC8',
     },
-    secondary: {
+    default: {
+      backgroundColor: '#4A90E2',
+      color: '#fff',
+      border: 'none',
+      hoverBg: '#3A7BC8',
+    },
+    outline: {
       backgroundColor: '#fff',
       color: '#1a1a1a',
       border: '1px solid #dee2e6',
       hoverBg: '#f8f9fa',
     },
-    tertiary: {
+    link: {
       backgroundColor: 'transparent',
       color: '#1a1a1a',
       border: 'none',
-      hoverBg: '#f8f9fa',
-    },
-    danger: {
-      backgroundColor: '#FF6B6B',
-      color: '#fff',
-      border: 'none',
-      hoverBg: '#FF5252',
-    },
-    success: {
-      backgroundColor: '#51CF66',
-      color: '#fff',
-      border: 'none',
-      hoverBg: '#40C057',
+      hoverBg: 'transparent',
     },
   };
 
   const style = component.style || 'primary';
-  const styleConfig = styleMap[style];
+  const styleConfig = styleMap[style] || styleMap.primary;
 
   const handleClick = () => {
     if (component.action.type === 'submit') {
@@ -54,7 +48,6 @@ export const ButtonComponent = ({
   return (
     <button
       onClick={handleClick}
-      disabled={component.disabled}
       style={{
         backgroundColor: styleConfig.backgroundColor,
         color: styleConfig.color,
@@ -63,26 +56,20 @@ export const ButtonComponent = ({
         borderRadius: '4px',
         fontSize: '14px',
         fontWeight: 600,
-        cursor: component.disabled ? 'not-allowed' : 'pointer',
-        opacity: component.disabled ? 0.5 : 1,
+        cursor: 'pointer',
         width: '100%',
         marginBottom: '8px',
         transition: 'all 0.15s ease',
         boxSizing: 'border-box',
       }}
       onMouseOver={(e) => {
-        if (!component.disabled) {
-          e.currentTarget.style.backgroundColor = styleConfig.hoverBg;
-        }
+        e.currentTarget.style.backgroundColor = styleConfig.hoverBg;
       }}
       onMouseOut={(e) => {
-        if (!component.disabled) {
-          e.currentTarget.style.backgroundColor = styleConfig.backgroundColor;
-        }
+        e.currentTarget.style.backgroundColor = styleConfig.backgroundColor;
       }}
     >
       {component.label}
     </button>
   );
 };
-

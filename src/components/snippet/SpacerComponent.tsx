@@ -3,13 +3,13 @@ import type { SpacerComponent as SpacerType } from '../../types/snippet';
 export const SpacerComponent = ({ component }: { component: SpacerType }) => {
   const sizeMap: Record<string, string> = {
     xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
+    s: '8px',
+    m: '16px',
+    l: '24px',
   };
 
-  const size = component.size || 'md';
+  const size = component.size || 'xs';
+  const height = sizeMap[size] || sizeMap['xs'];
 
-  return <div style={{ height: sizeMap[size] }} />;
+  return <div style={{ height }} />;
 };

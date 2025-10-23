@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { SnippetModel } from './types/snippet';
 import { SnippetRenderer } from './components/SnippetRenderer';
+import { ComponentBuilder } from './components/ComponentBuilder';
 import Editor from '@monaco-editor/react';
 import './App.css';
 
@@ -108,7 +109,7 @@ const defaultRequestBody = {
 };
 
 function App() {
-  const [mode, setMode] = useState<'json' | 'url'>('json');
+  const [mode, setMode] = useState<'json' | 'url' | 'builder'>('json');
   const [jsonInput, setJsonInput] = useState(JSON.stringify(defaultSnippetExample, null, 2));
   const [urlInput, setUrlInput] = useState('');
   const [tokenInput, setTokenInput] = useState('');
@@ -167,6 +168,7 @@ function App() {
   const refreshRenderer = () => {
     setRenderKey(prev => prev + 1);
   };
+
 
   const handleUrlTest = async () => {
     if (!urlInput.trim()) {
@@ -285,9 +287,19 @@ function App() {
             >
               서버 URL
             </button>
+            <button
+              className={mode === 'builder' ? 'active' : ''}
+              onClick={() => setMode('builder')}
+            >
+              컴포넌트 생성기
+            </button>
           </div>
 
-          {mode === 'json' ? (
+          {mode === 'builder' ? (
+            <div className="input-section">
+              <ComponentBuilder />
+            </div>
+          ) : mode === 'json' ? (
             <div className="input-section">
               <label style={{ flexShrink: 0, marginBottom: '8px' }}>스니펫 JSON (실시간 렌더링)</label>
               <div style={{ border: '1px solid #dee2e6', borderRadius: '8px', overflow: 'hidden', flex: 1, minHeight: 0 }}>
@@ -357,7 +369,7 @@ function App() {
                 </button>
               </div>
             </div>
-          ) : (
+          ) : mode === 'url' ? (
             <div className="input-section">
               <div style={{ flexShrink: 0 }}>
                 <label>스니펫 엔드포인트 URL</label>
@@ -414,7 +426,7 @@ function App() {
                 {loading ? '로딩중...' : '테스트하기'}
               </button>
             </div>
-          )}
+          ) : null}
 
           {error && (
             <div className="error-box" style={{ flexShrink: 0 }}>

@@ -34,18 +34,6 @@ export const DropdownComponent = ({
 
   return (
     <div style={{ marginBottom: '12px' }} ref={dropdownRef}>
-      {component.label && (
-        <label style={{ 
-          display: 'block', 
-          fontSize: '14px', 
-          fontWeight: 700, 
-          marginBottom: '8px', 
-          color: '#1a1a1a' 
-        }}>
-          {component.label}
-          {component.required && <span style={{ color: '#FF6B6B', marginLeft: '4px' }}>*</span>}
-        </label>
-      )}
       <div style={{ position: 'relative' }}>
         <div
           onClick={() => setIsOpen(!isOpen)}
@@ -68,7 +56,7 @@ export const DropdownComponent = ({
             boxShadow: isOpen ? '0 0 0 3px rgba(74, 144, 226, 0.1)' : 'none',
           }}
         >
-          <span>{selectedItem?.label || component.placeholder || '선택해주세요'}</span>
+          <span>{selectedItem?.label || component.label}</span>
           <svg
             width="14"
             height="8"
@@ -137,4 +125,3 @@ export const DropdownComponent = ({
     </div>
   );
 };
-

@@ -26,23 +26,19 @@ export interface BaseComponent {
 export interface ImageComponent extends BaseComponent {
   type: 'image';
   url: string;
-  alt?: string;
-  size?: 'small' | 'medium' | 'large' | 'full';
-  align?: 'left' | 'center' | 'right';
 }
 
 export interface TextComponent extends BaseComponent {
   type: 'text';
   text: string;
-  align?: 'left' | 'center' | 'right';
-  style?: 'header' | 'subheader' | 'body' | 'caption' | 'h1' | 'h2' | 'h3' | 'muted';
-  bold?: boolean;
-  color?: string;
+  style?: 'h1' | 'h2' | 'paragraph';
+  align?: 'center' | 'left';
+  color?: 'default' | 'muted' | 'success' | 'highlighted' | 'warning';
 }
 
 export interface SpacerComponent extends BaseComponent {
   type: 'spacer';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 's' | 'm' | 'l';
 }
 
 export interface ButtonComponent extends BaseComponent {
@@ -52,8 +48,7 @@ export interface ButtonComponent extends BaseComponent {
     type: 'submit' | 'link' | 'url';
     url?: string;
   };
-  style?: 'primary' | 'secondary' | 'danger' | 'success';
-  disabled?: boolean;
+  style?: 'primary' | 'default' | 'outline' | 'link';
 }
 
 export interface KeyValueComponent extends BaseComponent {
@@ -87,8 +82,7 @@ export interface InputComponent extends BaseComponent {
   label: string;
   placeholder?: string;
   value?: string;
-  required?: boolean;
-  multiline?: boolean;
+  disabled?: boolean;
 }
 
 export interface DropdownComponent extends BaseComponent {
@@ -111,16 +105,15 @@ export interface DropdownComponent extends BaseComponent {
 
 export interface DividerComponent extends BaseComponent {
   type: 'divider';
-  size?: 'thin' | 'medium' | 'thick';
 }
 
 export interface TimelineComponent extends BaseComponent {
   type: 'timeline';
-  items: Array<{
-    title: string;
-    description?: string;
-    timestamp?: string;
-    status?: 'completed' | 'active' | 'pending';
+  hour24?: boolean;
+  events: Array<{
+    ts: number;
+    value: string;
+    color?: string;
   }>;
 }
 
