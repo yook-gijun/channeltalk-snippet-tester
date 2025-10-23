@@ -12,7 +12,7 @@ export const ImageComponent = ({ component }: { component: ImageType }) => {
   const align = component.align || 'left';
 
   return (
-    <div style={{ textAlign: align, marginBottom: '12px' }}>
+    <div style={{ textAlign: align, marginBottom: '12px', maxWidth: '400px' }}>
       <img
         src={component.url}
         alt={component.alt || ''}

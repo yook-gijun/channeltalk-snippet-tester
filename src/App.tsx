@@ -289,10 +289,10 @@ function App() {
 
           {mode === 'json' ? (
             <div className="input-section">
-              <label>스니펫 JSON (실시간 렌더링)</label>
-              <div style={{ border: '1px solid #dee2e6', borderRadius: '8px', overflow: 'hidden' }}>
+              <label style={{ flexShrink: 0, marginBottom: '8px' }}>스니펫 JSON (실시간 렌더링)</label>
+              <div style={{ border: '1px solid #dee2e6', borderRadius: '8px', overflow: 'hidden', flex: 1, minHeight: 0 }}>
                 <Editor
-                  height="500px"
+                  height="100%"
                   defaultLanguage="json"
                   value={jsonInput}
                   onChange={(value) => handleJsonChange(value || '')}
@@ -308,7 +308,7 @@ function App() {
                   }}
                 />
               </div>
-              <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+              <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexShrink: 0 }}>
                 <button
                   onClick={copyLayoutToClipboard}
                   style={{
@@ -359,31 +359,33 @@ function App() {
             </div>
           ) : (
             <div className="input-section">
-              <label>스니펫 엔드포인트 URL</label>
-              <input
-                type="text"
-                value={urlInput}
-                onChange={(e) => setUrlInput(e.target.value)}
-                placeholder="https://example.com/snippet"
-              />
-              <div style={{ marginTop: '12px' }}>
-                <label>토큰 (선택사항)</label>
+              <div style={{ flexShrink: 0 }}>
+                <label>스니펫 엔드포인트 URL</label>
                 <input
                   type="text"
-                  value={tokenInput}
-                  onChange={(e) => setTokenInput(e.target.value)}
-                  placeholder="your-token-here"
-                  style={{ fontFamily: 'monospace' }}
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  placeholder="https://example.com/snippet"
                 />
-                <div style={{ fontSize: '12px', color: '#666', marginTop: '6px' }}>
-                  토큰을 입력하면 URL에 ?token=... 형태로 자동 추가됩니다
+                <div style={{ marginTop: '12px' }}>
+                  <label>토큰 (선택사항)</label>
+                  <input
+                    type="text"
+                    value={tokenInput}
+                    onChange={(e) => setTokenInput(e.target.value)}
+                    placeholder="your-token-here"
+                    style={{ fontFamily: 'monospace' }}
+                  />
+                  <div style={{ fontSize: '12px', color: '#666', marginTop: '6px' }}>
+                    토큰을 입력하면 URL에 ?token=... 형태로 자동 추가됩니다
+                  </div>
                 </div>
               </div>
-              <div style={{ marginTop: '12px' }}>
-                <label>Request Body (channel, user, manager)</label>
-                <div style={{ border: '1px solid #dee2e6', borderRadius: '8px', overflow: 'hidden', marginTop: '6px' }}>
+              <div style={{ marginTop: '12px', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+                <label style={{ flexShrink: 0, marginBottom: '6px' }}>Request Body (channel, user, manager)</label>
+                <div style={{ border: '1px solid #dee2e6', borderRadius: '8px', overflow: 'hidden', flex: 1, minHeight: 0 }}>
                   <Editor
-                    height="300px"
+                    height="100%"
                     defaultLanguage="json"
                     value={requestBodyInput}
                     onChange={(value) => setRequestBodyInput(value || '')}
@@ -399,7 +401,7 @@ function App() {
                     }}
                   />
                 </div>
-                <div style={{ fontSize: '12px', color: '#666', marginTop: '6px' }}>
+                <div style={{ fontSize: '12px', color: '#666', marginTop: '6px', flexShrink: 0 }}>
                   서버에 전송할 channel, user, manager 정보를 입력하세요
                 </div>
               </div>
@@ -407,6 +409,7 @@ function App() {
                 onClick={handleUrlTest}
                 className="test-button"
                 disabled={loading}
+                style={{ flexShrink: 0, marginTop: '12px' }}
               >
                 {loading ? '로딩중...' : '테스트하기'}
               </button>
@@ -414,7 +417,7 @@ function App() {
           )}
 
           {error && (
-            <div className="error-box">
+            <div className="error-box" style={{ flexShrink: 0 }}>
               <strong>Error:</strong> {error}
             </div>
           )}
@@ -440,7 +443,6 @@ function App() {
         </div>
 
         <div className="right-panel">
-          <h2>미리보기</h2>
           {snippetModel ? (
             <SnippetRenderer
               key={renderKey}
@@ -448,8 +450,11 @@ function App() {
               onSubmit={handleSubmit}
             />
           ) : (
-            <div className="empty-state">
-              스니펫을 로드하려면 JSON을 입력하거나 URL을 테스트하세요
+            <div className="snippet-preview" style={{ padding: '40px', textAlign: 'center', color: '#868e96' }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
+              <div style={{ fontSize: '15px' }}>
+                JSON을 입력하거나<br />URL을 테스트하세요
+              </div>
             </div>
           )}
         </div>

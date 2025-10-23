@@ -29,8 +29,6 @@ export const SnippetRenderer = ({
           padding: '60px 20px',
           textAlign: 'center',
           color: '#868e96',
-          maxWidth: '480px',
-          margin: '0 auto',
         }}
       >
         <div style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
@@ -92,10 +90,6 @@ export const SnippetRenderer = ({
   return (
     <div
       className="snippet-preview"
-      style={{
-        maxWidth: '480px',
-        margin: '0 auto',
-      }}
     >
       {snippetModel.snippet.layout.map((component) => (
         <div key={component.id}>{renderComponent(component)}</div>
