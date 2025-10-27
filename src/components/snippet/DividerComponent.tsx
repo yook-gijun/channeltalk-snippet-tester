@@ -1,6 +1,4 @@
-import type { DividerComponent as DividerType } from '../../types/snippet';
-
-export const DividerComponent = ({ component }: { component: DividerType }) => {
+export const DividerComponent = () => {
   return (
     <div
       style={{

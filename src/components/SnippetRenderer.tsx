@@ -40,11 +40,14 @@ export const SnippetRenderer = ({
   }
 
   const handleInputChange = (id: string, value: string) => {
-    setFormValues((prev) => ({ ...prev, [id]: value }));
+    const newValues = { ...formValues, [id]: value };
+    setFormValues(newValues);
   };
 
   const handleSubmit = (componentId: string) => {
     onSubmit(componentId, formValues);
+    // Submit 후 form 값 초기화
+    setFormValues({});
   };
 
   const renderComponent = (component: SnippetComponent) => {
@@ -79,7 +82,7 @@ export const SnippetRenderer = ({
           />
         );
       case 'divider':
-        return <DividerComponent component={component} />;
+        return <DividerComponent />;
       case 'timeline':
         return <TimelineComponent component={component} />;
       default:
